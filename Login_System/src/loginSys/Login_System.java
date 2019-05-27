@@ -13,6 +13,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -46,6 +49,15 @@ public class Login_System {
 		initialize();
 	}
 
+	public static void findUsername(String[] args) {
+		try {
+			Scanner findUsername = new Scanner(new File("D:\\\\Git\\\\repository\\\\Login_System\\\\Login_System\\\\src\\\\loginSys\\\\Username.txt"));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -83,7 +95,7 @@ public class Login_System {
 				// TODU change txtPassword text box to passwordField widget
 				String password = passwordField.getText();
 				String username = txtUsername.getText();
-				
+		
 				if (password.contains("king") && username.contains("one")) {
 					passwordField.setText(null);
 					txtUsername.setText(null);
