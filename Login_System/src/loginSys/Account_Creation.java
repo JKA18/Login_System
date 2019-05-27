@@ -12,6 +12,7 @@ import java.awt.Component;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -95,11 +96,13 @@ public class Account_Creation {
 				else {
 					try {
 						//TODO add ability to pull from database??
-						//This would only work if you put that path the text file
-					    FileWriter userNameWriter = new FileWriter("D:\\Git\\repository\\Login_System\\Login_System\\src\\loginSys\\Username.txt");
-					    FileWriter passwordWriter = new FileWriter("D:\\Git\\repository\\Login_System\\Login_System\\src\\loginSys\\Password.txt");
+						//This would only work if you put the path of the text file
+					    BufferedWriter userNameWriter = new BufferedWriter(new FileWriter("D:\\Git\\repository\\Login_System\\Login_System\\src\\loginSys\\Username.txt", true));
+					    BufferedWriter passwordWriter = new BufferedWriter(new FileWriter("D:\\Git\\repository\\Login_System\\Login_System\\src\\loginSys\\Password.txt", true));
 					        userNameWriter.write(createUsername);
+					        userNameWriter.newLine();
 					        passwordWriter.write(createPassword);
+					        passwordWriter.newLine();
 					    userNameWriter.close();
 					    passwordWriter.close();
 						txtCreateUserName.setText(null);
