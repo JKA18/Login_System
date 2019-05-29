@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -50,12 +51,7 @@ public class Login_System {
 	}
 
 	public static void findUsername(String[] args) {
-		try {
-			Scanner findUsername = new Scanner(new File("D:\\\\Git\\\\repository\\\\Login_System\\\\Login_System\\\\src\\\\loginSys\\\\Username.txt"));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 	}
 	
 	/**
@@ -91,25 +87,45 @@ public class Login_System {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// TODU change txtPassword text box to passwordField widget
+				//Opens files Password.txt and Username.txt
 				String password = passwordField.getText();
 				String username = txtUsername.getText();
-		
-				if (password.contains("king") && username.contains("one")) {
-					passwordField.setText(null);
-					txtUsername.setText(null);
+				try {
+					Scanner findUsername = new Scanner(new File("D:\\\\Git\\\\repository\\\\Login_System\\\\Login_System\\\\src\\\\loginSys\\\\Username.txt"));
+					Scanner findPassword = new Scanner(new File("D:\\\\Git\\\\repository\\\\Login_System\\\\Login_System\\\\src\\\\loginSys\\\\Password.txt"));
+
+					boolean line;
+					boolean line2;
+					while ((line = findUsername.hasNextLine()) != false && (line2 = findPassword.hasNextLine()) != false) {
+						String Username = findUsername.findInLine(username);
+						String Password = findPassword.findInLine(password);
+						if (Username != null && Password != null) {
+
+						passwordField.setText(null);
+						txtUsername.setText(null);
+						
+						Main_Page info = new Main_Page();
+						Main_Page.main(null);
+						frame.dispose();
+					}
 					
-					Main_Page info = new Main_Page();
-					Main_Page.main(null);
-					frame.dispose();
+									
+							JOptionPane.showMessageDialog(null,"Invalid Login Details","Login Error", JOptionPane.ERROR_MESSAGE);
+							passwordField.setText(null);
+							txtUsername.setText(null);
+						
+					}
 					
+					findPassword.close();
+					findUsername.close();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else {					
-					JOptionPane.showMessageDialog(null,"Invalid Login Details","Login Error", JOptionPane.ERROR_MESSAGE);
-					passwordField.setText(null);
-					txtUsername.setText(null);
-				}
+				
+	
+
+			
 			}
 		});
 		btnLogin.setBounds(52, 227, 89, 23);
